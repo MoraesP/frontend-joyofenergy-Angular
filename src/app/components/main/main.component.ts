@@ -1,29 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { Data } from 'src/app/shared/models/dataModel';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Component, OnInit } from "@angular/core";
+import { Data } from "src/app/shared/models/dataModel";
 import { renderChart } from "../../shared/utils/chart";
-import { groupByDay, sortByTime, getReadings } from "../../shared/utils/reading";
+import {
+  getReadings,
+  groupByDay,
+  sortByTime,
+} from "../../shared/utils/reading";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit {
   chartData: Data[] = [];
-  constructor() { 
+
+  constructor() {}
+
+  ngOnInit(): void {
     this.createChart();
   }
 
-  ngOnInit(): void {
-     
+  async createChart(): Promise<void> {
+    try {
+      const containerId = "chart";
+      this.chartData = await getReadings();
+      const processedData = sortByTime(groupByDay(this.chartData)).slice(-30);
+      renderChart(containerId, processedData);
+    } catch (error) {
+      console.error("Erro ao criar o gráfico:", error);
+    }
   }
-
-  async createChart() {
-    const readings = await getReadings();
-    const containerId = "chart";
-    this.chartData = readings;
-    renderChart(containerId, sortByTime(groupByDay(readings)).slice(-30));
-  }
-
 }

@@ -1,26 +1,42 @@
-import * as chartJs from "chart.js";
+import {
+  BarController,
+  BarElement,
+  CategoryScale,
+  Chart,
+  ChartConfiguration,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { Data } from "../models/dataModel";
 
-let chart;
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  BarController,
+  Title,
+  Tooltip,
+  Legend
+);
 
-export const formatDateLabel = (timestamp) => {
+let chart: Chart | null = null;
+
+export const formatDateLabel = (timestamp: number): string => {
   const date = new Date(timestamp);
   const month = date.getMonth();
   const day = date.getDate();
 
-  const formatPart = (value) => {
+  const formatPart = (value: number): string => {
     return value < 10 ? `0${value}` : `${value}`;
   };
 
   return `${formatPart(day)}/${formatPart(month + 1)}`;
 };
 
-export const renderChart = (containerId, readings) => {
-  chartJs.Chart.defaults.font.size = "10px";
-
-  chartJs.Chart.register.apply(
-    null,
-    Object.values(chartJs).filter((chartClass) => chartClass.id)
-  );
+export const renderChart = (containerId: string, readings: Data[]): void => {
+  Chart.defaults.font.size = 10;
 
   const labels = readings.map(({ time }) => formatDateLabel(time));
   const values = readings.map(({ value }) => value);
@@ -45,7 +61,12 @@ export const renderChart = (containerId, readings) => {
     chart.destroy();
   }
 
-  chart = new chartJs.Chart(containerId, {
+  const canvas = document.getElementById(containerId) as HTMLCanvasElement;
+  if (!canvas) {
+    return;
+  }
+
+  const config: ChartConfiguration<"bar"> = {
     type: "bar",
     data: data,
     options: {
@@ -68,5 +89,7 @@ export const renderChart = (containerId, readings) => {
       },
       maintainAspectRatio: false,
     },
-  });
+  };
+
+  chart = new Chart(canvas, config);
 };
