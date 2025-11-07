@@ -1,29 +1,34 @@
 <div class="background shadow-2 flex overflow-hidden">
-    <app-side-bar></app-side-bar>
-    <div class="bg-very-light-grey p3 flex-auto overflow-auto">
-        <h1 class="regular darkgray line-height-1 mb3">Energy consumption</h1>
-        <section class="mb3">
-            <button
-              class="
-                h5
-                inline-block
-                shadow-2
-                pl2
-                pr2
-                pt1
-                pb1
-                roundedMore
-                border-grey
-                bg-blue
-                white
-                bold
-              "
-            >
-              Last 30 days
-            </button>
-          </section>
-          <section class="chartHeight mb3">
-            <app-chart [chartData]="chartData"></app-chart>
-          </section>
-    </div>
+  <app-side-bar></app-side-bar>
+  <div class="bg-very-light-grey p3 flex-auto overflow-auto">
+    <h1 class="regular darkgray line-height-1 mb3">Energy consumption</h1>
+    <section class="mb3 flex items-center">
+      <button
+        class="h5 inline-block shadow-2 pl2 pr2 pt1 pb1 roundedMore border-grey bg-blue white bold mr2"
+      >
+        Last 30 days
+      </button>
+      <button
+        (click)="refreshData()"
+        [disabled]="loading"
+        class="h5 inline-block shadow-2 pl2 pr2 pt1 pb1 roundedMore border-grey bg-green white bold"
+        title="Atualizar dados"
+      >
+        {{ loading ? "Carregando..." : "Atualizar" }}
+      </button>
+    </section>
+    <section class="chartHeight mb3">
+      <ng-container *ngIf="loading; else chart"></ng-container>
+      <div *ngIf="loading" class="flex items-center justify-center h-full">
+        <div class="text-center">
+          <div class="loading-spinner mb2"></div>
+          <p class="darkgray">Carregando dados do gráfico...</p>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
+
+<ng-template #chart>
+  <app-chart [chartData]="chartData"> </app-chart>
+</ng-template>

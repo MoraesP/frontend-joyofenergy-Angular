@@ -1,4 +1,4 @@
-export interface Data{
-    time: number,
-    value: number
+export interface Data {
+  time: number;
+  value: number;
 }
