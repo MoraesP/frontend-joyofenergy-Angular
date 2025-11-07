@@ -9,19 +9,6 @@ import { getReadings, groupByDay, sortByTime } from "../utils/reading";
 export class ApiService {
   constructor() {}
 
-  getEnergyReadings(length: number = 1200): Observable<Data[]> {
-    return from(getReadings(length)).pipe(delay(500));
-  }
-
-  getProcessedEnergyData(length: number = 1200): Observable<Data[]> {
-    return from(
-      getReadings(length).then((readings) => {
-        const groupedData = groupByDay(readings);
-        return sortByTime(groupedData);
-      })
-    ).pipe(delay(300));
-  }
-
   getChartData(): Observable<Data[]> {
     return from(
       getReadings(1200).then((readings) => {
@@ -29,29 +16,6 @@ export class ApiService {
         return processedData.slice(-30);
       })
     ).pipe(delay(400));
-  }
-
-  getEnergyStats(): Observable<{
-    totalConsumption: number;
-    averageDaily: number;
-    peakConsumption: number;
-    lastUpdate: Date;
-  }> {
-    return from(
-      getReadings(30).then((readings) => {
-        const values = readings.map((r) => r.value);
-        const total = values.reduce((sum, val) => sum + val, 0);
-        const average = total / values.length;
-        const peak = Math.max(...values);
-
-        return {
-          totalConsumption: Number(total.toFixed(2)),
-          averageDaily: Number(average.toFixed(2)),
-          peakConsumption: Number(peak.toFixed(2)),
-          lastUpdate: new Date(),
-        };
-      })
-    ).pipe(delay(200));
   }
 
   getDevicesData(): Observable<Array<{ name: string; consumption: string }>> {
