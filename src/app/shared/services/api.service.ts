@@ -54,16 +54,14 @@ export class ApiService {
     ).pipe(delay(200));
   }
 
-  getDevicesData(): Observable<
-    Array<{ name: string; consumption: string; status: string }>
-  > {
+  getDevicesData(): Observable<Array<{ name: string; consumption: string }>> {
     const devicesData = [
-      { name: "Air conditioner", consumption: "0.3093kW", status: "active" },
-      { name: "Wi-Fi router", consumption: "0.0033kW", status: "active" },
-      { name: "Humidifier", consumption: "0.0518kW", status: "active" },
-      { name: "Smart TV", consumption: "0.1276kW", status: "standby" },
-      { name: "Diffuser", consumption: "0.0078kW", status: "active" },
-      { name: "Refrigerator", consumption: "0.0923kW", status: "active" },
+      { name: "Air conditioner", consumption: "0.3093kW" },
+      { name: "Wi-Fi router", consumption: "0.0033kW" },
+      { name: "Humidifier", consumption: "0.0518kW" },
+      { name: "Smart TV", consumption: "0.1276kW" },
+      { name: "Diffuser", consumption: "0.0078kW" },
+      { name: "Refrigerator", consumption: "0.0923kW" },
     ];
     return of(devicesData).pipe(delay(250));
   }

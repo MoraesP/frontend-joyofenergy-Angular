@@ -1,7 +1,7 @@
 <div class="p3 menuWidth overflow-auto">
   <div
     class="energy-card"
-    *ngFor="let energyField of energyConsumptionMap | keyvalue: asIsOrder"
+    *ngFor="let energyField of energyConsumptionMap | keyvalue : asIsOrder"
   >
     <div class="h2 greyBlue">
       {{ energyField.key }}
@@ -11,9 +11,18 @@
     </div>
   </div>
   <section class="h5 darkgray mb2">
+    <h4 class="h4 mb1">Your devices:</h4>
 
+    <ng-container *ngIf="loading; else listDevices">
+      <div class="text-center p2">
+        <div class="loading-spinner-small mb1"></div>
+        <p class="h6 darkgray">Carregando dispositivos...</p>
+      </div>
+    </ng-container>
+  </section>
+</div>
 
-  <h4 class="h4 mb1">Your devices:</h4>
+<ng-template #listDevices>
   <div
     class="shadow-2 roundedMore bg-super-light-grey mb1"
     *ngFor="let device of devicesMap | keyvalue"
@@ -23,5 +32,4 @@
       {{ device.value }}
     </p>
   </div>
-</section>
-</div>
+</ng-template>
