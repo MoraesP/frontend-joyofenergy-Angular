@@ -5,7 +5,7 @@
     <section class="mb3 flex items-center">
       <button
         class="h5 inline-block shadow-2 pl2 pr2 pt1 pb1 roundedMore border-grey bg-blue white bold mr2"
-      >
+        >
         Last 30 days
       </button>
       <button
@@ -13,22 +13,24 @@
         [disabled]="loading"
         class="h5 inline-block shadow-2 pl2 pr2 pt1 pb1 roundedMore border-grey bg-green white bold"
         title="Atualizar dados"
-      >
+        >
         {{ loading ? "Carregando..." : "Atualizar" }}
       </button>
     </section>
     <section class="chartHeight mb3">
-      <ng-container *ngIf="loading; else chart"></ng-container>
-      <div *ngIf="loading" class="flex items-center justify-center h-full">
-        <div class="text-center">
-          <div class="loading-spinner mb2"></div>
-          <p class="darkgray">Carregando dados do gráfico...</p>
+      @if (loading) {
+      } @else {
+        <app-chart [chartData]="chartData"> </app-chart>
+      }
+      @if (loading) {
+        <div class="flex items-center justify-center h-full">
+          <div class="text-center">
+            <div class="loading-spinner mb2"></div>
+            <p class="darkgray">Carregando dados do gráfico...</p>
+          </div>
         </div>
-      </div>
+      }
     </section>
   </div>
 </div>
 
-<ng-template #chart>
-  <app-chart [chartData]="chartData"> </app-chart>
-</ng-template>
