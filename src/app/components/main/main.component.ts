@@ -5,9 +5,10 @@ import { ApiService } from "src/app/shared/services/api.service";
 import { renderChart } from "../../shared/utils/chart";
 
 @Component({
-  selector: "app-main",
-  templateUrl: "./main.component.html",
-  styleUrls: ["./main.component.scss"],
+    selector: "app-main",
+    templateUrl: "./main.component.html",
+    styleUrls: ["./main.component.scss"],
+    standalone: false
 })
 export class MainComponent implements OnInit, OnDestroy {
   chartData: Data[] = [];

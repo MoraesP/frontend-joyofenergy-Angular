@@ -4,9 +4,10 @@ import { Subject, takeUntil } from "rxjs";
 import { ApiService } from "src/app/shared/services/api.service";
 
 @Component({
-  selector: "app-side-bar",
-  templateUrl: "./side-bar.component.html",
-  styleUrls: ["./side-bar.component.scss"],
+    selector: "app-side-bar",
+    templateUrl: "./side-bar.component.html",
+    styleUrls: ["./side-bar.component.scss"],
+    standalone: false
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   energyConsumptionMap = new Map<string, string>([
