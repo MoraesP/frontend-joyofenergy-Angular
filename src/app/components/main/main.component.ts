@@ -1,14 +1,18 @@
+import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
 import { Data } from "src/app/shared/models/dataModel";
 import { ApiService } from "src/app/shared/services/api.service";
 import { renderChart } from "../../shared/utils/chart";
+import { ChartComponent } from "../chart/chart.component";
+import { SideBarComponent } from "../side-bar/side-bar.component";
 
 @Component({
-    selector: "app-main",
-    templateUrl: "./main.component.html",
-    styleUrls: ["./main.component.scss"],
-    standalone: false
+  selector: "app-main",
+  standalone: true,
+  imports: [CommonModule, ChartComponent, SideBarComponent],
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit, OnDestroy {
   chartData: Data[] = [];

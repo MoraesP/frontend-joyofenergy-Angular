@@ -1,22 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Data } from 'src/app/shared/models/dataModel';
-
-
+import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
 
 @Component({
-    selector: 'app-chart',
-    templateUrl: './chart.component.html',
-    styleUrls: ['./chart.component.scss'],
-    standalone: false
+  selector: "app-chart",
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: "./chart.component.html",
+  styleUrls: ["./chart.component.scss"],
 })
-export class ChartComponent implements OnInit {
-  chart: any;
-  @Input() chartData: Data[] = [];
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  
-
-}
+export class ChartComponent {}

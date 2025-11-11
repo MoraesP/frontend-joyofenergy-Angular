@@ -1,36 +1,30 @@
 <div class="p3 menuWidth overflow-auto">
-  @for (energyField of energyConsumptionMap | keyvalue : asIsOrder; track energyField) {
-    <div
-      class="energy-card"
-      >
-      <div class="h2 greyBlue">
-        {{ energyField.key }}
-      </div>
-      <div class="darkgray mb2">
-        {{ energyField.value }}
-      </div>
+  @for (energyField of energyConsumptionMap | keyvalue : asIsOrder; track
+  energyField) {
+  <div class="energy-card">
+    <div class="h2 greyBlue">
+      {{ energyField.key }}
     </div>
+    <div class="darkgray mb2">
+      {{ energyField.value }}
+    </div>
+  </div>
   }
   <section class="h5 darkgray mb2">
     <h4 class="h4 mb1">Your devices:</h4>
 
     @if (loading) {
-      <div class="text-center p2">
-        <div class="loading-spinner-small mb1"></div>
-        <p class="h6 darkgray">Carregando dispositivos...</p>
-      </div>
-    } @else {
-      @for (device of devicesMap | keyvalue; track device) {
-        <div
-          class="shadow-2 roundedMore bg-super-light-grey mb1"
-          >
-          <p class="darkgray pl2 pt1 pb1">{{ device.key }}</p>
-          <p class="h5 darkgray bold pl2 pb1 pt1 bg-very-light-grey">
-            {{ device.value }}
-          </p>
-        </div>
-      }
-    }
+    <div class="text-center p2">
+      <div class="loading-spinner-small mb1"></div>
+      <p class="h6 darkgray">Carregando dispositivos...</p>
+    </div>
+    } @else { @for (device of devicesMap | keyvalue; track device) {
+    <div class="shadow-2 roundedMore bg-super-light-grey mb1">
+      <p class="darkgray pl2 pt1 pb1">{{ device.key }}</p>
+      <p class="h5 darkgray bold pl2 pb1 pt1 bg-very-light-grey">
+        {{ device.value }}
+      </p>
+    </div>
+    } }
   </section>
 </div>
-

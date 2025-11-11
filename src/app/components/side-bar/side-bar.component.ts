@@ -1,13 +1,14 @@
-import { KeyValue } from "@angular/common";
+import { KeyValue, CommonModule, KeyValuePipe } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
 import { ApiService } from "src/app/shared/services/api.service";
 
 @Component({
-    selector: "app-side-bar",
-    templateUrl: "./side-bar.component.html",
-    styleUrls: ["./side-bar.component.scss"],
-    standalone: false
+  selector: "app-side-bar",
+  standalone: true,
+  imports: [CommonModule, KeyValuePipe],
+  templateUrl: "./side-bar.component.html",
+  styleUrls: ["./side-bar.component.scss"],
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   energyConsumptionMap = new Map<string, string>([
